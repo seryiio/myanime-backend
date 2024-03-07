@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from "../database/db.js";
 import { Episode } from './episode.model.js';
+import { Song } from './song.model.js';
 
 export const Season = sequelize.define('season', {
     id: {
@@ -12,20 +13,49 @@ export const Season = sequelize.define('season', {
     number: {
         type: DataTypes.INTEGER,
     },
-    
+
+    title_japanese: {
+        type: DataTypes.STRING,
+    },
+
+    title_english: {
+        type: DataTypes.STRING,
+    },
+
+    synopsis: {
+        type: DataTypes.TEXT,
+    },
+
+    year: {
+        type: DataTypes.INTEGER,
+    },
+
+    season_year: {
+        type: DataTypes.STRING,
+    },
+
     type: {
         type: DataTypes.STRING,
     },
 
-    start_date: {
-        type: DataTypes.DATEONLY,
+    studio: {
+        type: DataTypes.STRING,
     },
 
-    end_date: {
-        type: DataTypes.DATEONLY,
+    image: {
+        type: DataTypes.STRING,
     },
 
-    description: {
+    cover_image: {
+        type: DataTypes.STRING,
+    },
+    
+
+    cover_image_secondary: {
+        type: DataTypes.STRING,
+    },
+
+    url_trailer: {
         type: DataTypes.STRING,
     },
 
@@ -42,6 +72,16 @@ Season.hasMany(Episode, {
 })
 
 Episode.belongsTo(Season, {
+    foreingKey: 'seasonId',
+    targetId: 'id'
+})
+
+Season.hasMany(Song, {
+    foreingKey: 'seasonId',
+    sourceKey: 'id'
+})
+
+Song.belongsTo(Season, {
     foreingKey: 'seasonId',
     targetId: 'id'
 })

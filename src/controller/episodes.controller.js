@@ -28,10 +28,10 @@ export const getEpisode = async (req, res) => {
 export const createEpisode = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, number, duration, startDate,seasonId } = req.body;
+        const { number, title, synopsis, duration, date, seasonId } = req.body;
 
         const episode = await Episode.create({
-            title, description, number, duration, seasonId, startDate
+            number, title, synopsis, synopsis, duration, date, seasonId
         })
         res.json(episode);
 
@@ -44,13 +44,12 @@ export const createEpisode = async (req, res) => {
 export const updateEpisode = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, number, duration, startDate,seasonId } = req.body;
+        const { number, title, duration, date, seasonId } = req.body;
         const episode = await Episode.findByPk(id);
-        episode.title = title;
-        episode.description = description;
         episode.number = number;
+        episode.title = title;
         episode.duration = duration;
-        episode.startDate = startDate;
+        episode.date = date;
         episode.seasonId = seasonId;
 
         await Episode.save();
@@ -64,7 +63,7 @@ export const updateEpisode = async (req, res) => {
 export const deleteEpisode = async (req, res) => {
     try {
         const { id } = req.params;
-        await Episode.destroy ({
+        await Episode.destroy({
             where: { id, }
         })
         res.status(204);

@@ -7,19 +7,19 @@ export const Episode = sequelize.define('episode', {
         primaryKey: true,
         autoIncrement: true
     },
+    number: {
+        type: DataTypes.INTEGER,
+    },
     title: {
         type: DataTypes.STRING,
     },
-    description: {
-        type: DataTypes.STRING,
-    },
-    number: {
-        type: DataTypes.INTEGER,
+    synopsis: {
+        type: DataTypes.TEXT,
     },
     duration: {
         type: DataTypes.TIME,
     },
-    start_date: {
+    date: {
         type: DataTypes.DATEONLY,
     },
 }, {

@@ -3,7 +3,7 @@ import { sequelize } from './database/db.js'
 
 async function main() {
     try {
-        await sequelize.sync({force:true})
+        await sequelize.sync({force:false})
         app.listen(4000);
         console.log('Server RUN!');
     } catch (error) {

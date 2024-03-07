@@ -2,14 +2,16 @@ import { DataTypes } from "sequelize"
 import { sequelize } from "../database/db.js"
 import { Anime } from "./anime.model.js";
 import { Genre } from "./genre.model.js";
+import { Season } from "./season.model.js";
 
-export const AnimeGenre = sequelize.define('animes_genre', {
+export const AnimeGenre = sequelize.define('anime_genre', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     }
 }, { timestamps: false });
+
 Anime.belongsToMany(Genre, { through: AnimeGenre, foreignKey: 'animeId' });
 Genre.belongsToMany(Anime, { through: AnimeGenre, foreignKey: 'genreId' });
 

@@ -1,7 +1,5 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/db.js'
-
-import { Genre } from './genre.model.js'
 import { Season } from './season.model.js';
 
 export const Anime = sequelize.define('anime', {
@@ -10,43 +8,36 @@ export const Anime = sequelize.define('anime', {
         primaryKey: true,
         autoIncrement: true
     },
-    title: {
+    title_japanese: {
         type: DataTypes.STRING,
         unique: true
     },
-    description: {
+    title_english: {
         type: DataTypes.STRING,
+        unique: true
     },
-    year: {
-        type: DataTypes.DATEONLY,
+    synopsis: {
+        type: DataTypes.TEXT,
+    },
+    logo_image: {
+        type: DataTypes.STRING,
+
     },
     image: {
         type: DataTypes.STRING,
 
     },
-    cover_image: {
-        type: DataTypes.STRING,
-    },
-    url: {
-        type: DataTypes.STRING,
-    },
-    url_trailer: {
-        type: DataTypes.STRING,
-    },
-    status: {
-        type: DataTypes.BOOLEAN,
-    }
 }, {
     timestamps: false,
 });
 
 //Cuando es UNO A MUCHOS LA FUNCION VA EN EL PADRE
 Anime.hasMany(Season, {
-    foreingKey: 'seasonId',
+    foreingKey: 'animeId',
     sourceKey: 'id'
 })
 
 Season.belongsTo(Anime, {
-    foreingKey: 'seasonId',
+    foreingKey: 'animeId',
     targetId: 'id'
 })

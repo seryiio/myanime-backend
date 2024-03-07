@@ -6,7 +6,7 @@ import animesRoutes from './routes/animes.routes.js'
 import genresRoutes from './routes/genres.routes.js'
 import seasonsRoutes from './routes/seasons.routes.js'
 import episodesRoutes from './routes/episodes.routes.js'
-import { AnimeGenre } from './models/anime_genre.model.js';
+import songsRoutes from './routes/songs.routes.js'
 
 const app = express();
 const IP = "192.168.1.49";
@@ -20,6 +20,7 @@ app.use('/api/v1', animesRoutes);
 app.use('/api/v1', genresRoutes);
 app.use('/api/v1', seasonsRoutes);
 app.use('/api/v1', episodesRoutes);
+app.use('/api/v1', songsRoutes);
 
 app.listen(port, () => {
     console.log("http://" + IP + ":" + port + "/");

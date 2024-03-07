@@ -1,20 +1,7 @@
 import { Anime } from "../models/anime.model.js"
 import { AnimeGenre } from "../models/anime_genre.model.js"
 import { Genre } from "../models/genre.model.js";
-
-export const getAllAnimeGenres = async (req, res) => {
-    try {
-        const animes = await Anime.findAll({
-            include: {
-                model: Genre,
-            }
-        });
-        res.json(animes);
-    } catch (error) {
-        console.error('Error al obtener generos del anime:', error);
-        res.status(500).json({ error: 'Error al obtener generos del anime' });
-    }
-}
+import { Season } from "../models/season.model.js";
 
 export const getAllGenreAnimes = async (req, res) => {
     try {
@@ -29,7 +16,6 @@ export const getAllGenreAnimes = async (req, res) => {
         res.status(500).json({ error: 'Error al obtener animes de este genero' });
     }
 }
-
 
 export const getAnimeGenresByID = async (req, res) => {
     try {
@@ -61,6 +47,25 @@ export const getGenreAnimesByID = async (req, res) => {
     }
 }
 
+
+//CRUD DE ANIMEGENRES
+
+export const getAnimeGenres = async (req, res) => {
+    try {
+        const animes = await Anime.findAll({
+            include: [
+                {
+                    model: Genre,
+                }
+            ]
+        });
+        res.json(animes);
+    } catch (error) {
+        console.error('Error al obtener generos del anime:', error);
+        res.status(500).json({ error: 'Error al obtener generos del anime' });
+    }
+}
+
 export const createAnimeGenres = async (req, res) => {
     const { animeId, genreId } = req.body;
     try {
@@ -69,8 +74,8 @@ export const createAnimeGenres = async (req, res) => {
         })
         res.json(newAnimeGenres);
     } catch (error) {
-        console.error('Error al obtener generos del anime:', error);
-        res.status(500).json({ error: 'Error al obtener generos del anime' });
+        console.error('Error al crear generos del anime:', error);
+        res.status(500).json({ error: 'Error al crear generos del anime' });
     }
 }
 
@@ -80,14 +85,14 @@ export const updateAnimeGenres = async (req, res) => {
         const { animeId, genreId } = req.body;
 
         const animeGenres = await AnimeGenre.findByPk(id);
-        animeId.animeId = animeId,
-            animeGenres.genreId = genreId
+        animeGenres.animeId = animeId;
+        animeGenres.genreId = genreId;
 
         await animeGenres.save();
         res.json(animeGenres);
     } catch (error) {
-        console.error('Error al obtener generos del anime:', error);
-        res.status(500).json({ error: 'Error al obtener generos del anime' });
+        console.error('Error al editar generos del anime:', error);
+        res.status(500).json({ error: 'Error al editar generos del anime' });
     }
 }
 
@@ -101,7 +106,7 @@ export const deleteAnimeGenres = async (req, res) => {
         });
         res.sendStatus(204);
     } catch (error) {
-        console.error('Error al obtener generos del anime:', error);
-        res.status(500).json({ error: 'Error al obtener generos del anime' });
+        console.error('Error al eliminar generos del anime:', error);
+        res.status(500).json({ error: 'Error al eliminar generos del anime' });
     }
 }
