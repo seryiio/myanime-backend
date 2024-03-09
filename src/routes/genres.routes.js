@@ -10,7 +10,7 @@ router.get('/genres/:id', getGenre);
 router.put('/genres/:id',updateGenre);
 router.delete('/genres/:id', deleteGenre);
 
-router.get('/genresanime', getAllGenreAnimes);
+router.get('/genreanimes', getAllGenreAnimes);
 router.get('/genres/:id/animes', getGenreAnimesByID);
 
 export default router;
