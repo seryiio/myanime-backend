@@ -37,6 +37,4 @@ app.listen(port, () => {
     console.log(`port running on port http://localhost:${port}`);
 });
 
-export { animesRoutes, booksRoutes, genresRoutes, seasonsRoutes, episodesRoutes, songsRoutes, authenticationRoutes, rolesRoute, commentsRoute, myListRoute, volumeRoute };
-
-export default app;
+export default app
