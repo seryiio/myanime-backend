@@ -22,6 +22,9 @@ export const Episode = sequelize.define('episode', {
     date: {
         type: DataTypes.DATEONLY,
     },
+    puntuation: {
+        type: DataTypes.FLOAT,
+    },
 }, {
     timestamps: true,
 })

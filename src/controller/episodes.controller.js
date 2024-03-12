@@ -27,11 +27,10 @@ export const getEpisode = async (req, res) => {
 
 export const createEpisode = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { number, title, synopsis, duration, date, seasonId } = req.body;
+        const { number, title, synopsis, duration, date, puntuation, seasonId } = req.body;
 
         const episode = await Episode.create({
-            number, title, synopsis, synopsis, duration, date, seasonId
+            number, title, synopsis, synopsis, duration, date, puntuation, seasonId
         })
         res.json(episode);
 
@@ -44,12 +43,13 @@ export const createEpisode = async (req, res) => {
 export const updateEpisode = async (req, res) => {
     try {
         const { id } = req.params;
-        const { number, title, duration, date, seasonId } = req.body;
+        const { number, title, duration, date, puntuation, seasonId } = req.body;
         const episode = await Episode.findByPk(id);
         episode.number = number;
         episode.title = title;
         episode.duration = duration;
         episode.date = date;
+        episode.puntuation = puntuation;
         episode.seasonId = seasonId;
 
         await Episode.save();

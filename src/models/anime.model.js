@@ -21,11 +21,9 @@ export const Anime = sequelize.define('anime', {
     },
     logo_image: {
         type: DataTypes.STRING,
-
     },
-    image: {
-        type: DataTypes.STRING,
-
+    puntuation: {
+        type: DataTypes.FLOAT,
     },
 }, {
     timestamps: false,
@@ -39,5 +37,5 @@ Anime.hasMany(Season, {
 
 Season.belongsTo(Anime, {
     foreingKey: 'animeId',
-    targetId: 'id'
+    targetKey: 'id'
 })

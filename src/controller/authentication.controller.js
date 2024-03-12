@@ -32,12 +32,13 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
     try {
-        const { email, username, password } = req.body;
+        const { email, image,username, password } = req.body;
         const passwordHash = await encrypt(password);
 
         // Crea el usuario
         const newUser = await User.create({
             email,
+            image,
             username,
             password: passwordHash
         });

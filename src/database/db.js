@@ -1,11 +1,17 @@
-import Sequalize from 'sequelize';
+import Sequelize from 'sequelize';
 
-export const sequelize = new Sequalize(
-    'dbanime',
-    'postgres',
-    '1234',
+export const sequelize = new Sequelize(
+    'verceldb',
+    'default',
+    '1LZzTysavI7P',
     {
-        host: 'localhost',
-        dialect: 'postgres'
+        host: 'ep-bitter-moon-a4zi37nh-pooler.us-east-1.aws.neon.tech',
+        dialect: 'postgres',
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        }
     }
 );

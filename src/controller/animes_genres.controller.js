@@ -1,9 +1,8 @@
 import { Anime } from "../models/anime.model.js"
 import { AnimeGenre } from "../models/anime_genre.model.js"
 import { Genre } from "../models/genre.model.js";
-import { Season } from "../models/season.model.js";
 
-export const getAllGenreAnimes = async (req, res) => {
+export const getAnimesByGenres = async (req, res) => {
     try {
         const genres = await Genre.findAll({
             include: {
@@ -17,22 +16,7 @@ export const getAllGenreAnimes = async (req, res) => {
     }
 }
 
-export const getAnimeGenresByID = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const animes = await Anime.findByPk(id, {
-            include: {
-                model: Genre,
-            }
-        });
-        res.json(animes);
-    } catch (error) {
-        console.error('Error al obtener generos del anime:', error);
-        res.status(500).json({ error: 'Error al obtener generos del anime' });
-    }
-}
-
-export const getGenreAnimesByID = async (req, res) => {
+export const getAnimesByGenreId = async (req, res) => {
     try {
         const { id } = req.params;
         const genres = await Genre.findByPk(id, {
@@ -49,7 +33,6 @@ export const getGenreAnimesByID = async (req, res) => {
 
 
 //CRUD DE ANIMEGENRES
-
 export const getAnimeGenres = async (req, res) => {
     try {
         const animes = await Anime.findAll({

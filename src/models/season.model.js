@@ -50,6 +50,9 @@ export const Season = sequelize.define('season', {
         type: DataTypes.STRING,
     },
     
+    puntuation: {
+        type: DataTypes.FLOAT,
+    },
 
     cover_image_secondary: {
         type: DataTypes.STRING,
@@ -59,6 +62,9 @@ export const Season = sequelize.define('season', {
         type: DataTypes.STRING,
     },
 
+    day_emission: {
+        type: DataTypes.STRING,
+    },
     status: {
         type: DataTypes.BOOLEAN,
     }

@@ -3,13 +3,6 @@ import { createSeason, deleteSeason, getAllSeasons, getLastSeasonsByEachAnime, g
 
 const router = new Router();
 
-
-//BUSINESS LOGICAL
-router.get('/animegenres/:id/seasons', getSeasonsByAnimeId);
-router.get('/lastseason', getLastSeasonsByEachAnime);
-router.get('/animegenres/:id/seasons/:id', getSeasonByAnimeId);
-router.get('/animegenres/:id/seasons/:id/episodes', getSeasonEpisodes)
-
 //CRUD SEASONS
 router.get('/seasons', getAllSeasons)
 router.post('/seasons', createSeason)

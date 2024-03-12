@@ -1,28 +1,24 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/db.js";
 
-export const User = sequelize.define('user',{
+export const Volume = sequelize.define('volume', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    email: {
-        type: DataTypes.STRING,
-        unique: true
+    number: {
+        type: DataTypes.INTEGER,
     },
     image: {
         type: DataTypes.STRING,
     },
-    username: {
-
+    status: {
         type: DataTypes.STRING,
-        unique: true
     },
-    password: {
-        type: DataTypes.STRING,
-        unique: true
-    },
+    puntuation: {
+        type: DataTypes.FLOAT,
+    }
 }, {
-    timestamps: false,
+    timestamps: true,
 });
