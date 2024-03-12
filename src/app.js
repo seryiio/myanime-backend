@@ -37,4 +37,4 @@ app.listen(port, () => {
     console.log(`port running on port http://localhost:${port}`);
 });
 
-export default app
+export default app;
