@@ -3,6 +3,8 @@ import { Router } from "express";
 import { createAnime, deleteAnime, getAllAnimes, getAnime, updateAnime } from '../controller/animes.controller.js'
 import { createAnimeGenres, deleteAnimeGenres, updateAnimeGenres } from "../controller/animes_genres.controller.js";
 import { getLastSeasonsByAnimeId, getLastSeasonsByEachAnime, getSeasonByAnimeId, getSeasonEpisodes, getSeasonsByAnimeId } from "../controller/seasons.controller.js";
+import { checkAuth } from "../middleware/auth.js";
+import { checkRoleAuth } from "../middleware/roleAuth.js";
 
 const router = Router();
 
@@ -21,8 +23,8 @@ router.put('/animes/:id/genres/:id', updateAnimeGenres);
 router.delete('/animes/:id/genres/:id', deleteAnimeGenres);
 
 //CRUD ANIMES
-router.get('/animes', getAllAnimes);
-router.post('/animes', createAnime);
+router.get('/animes', checkAuth, checkRoleAuth(['ADMIN']), getAllAnimes);
+router.post('/animes', checkAuth, checkRoleAuth(['ADMIN']),createAnime);
 router.get('/animes/:id', getAnime);
 router.put('/animes/:id', updateAnime);
 router.delete('/animes/:id', deleteAnime);

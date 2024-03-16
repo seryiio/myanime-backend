@@ -3,6 +3,7 @@ import { encrypt } from "../helpers/handleBcrypt.js";
 import { User } from "../models/user.model.js";
 import { UserRole } from "../models/user_role.model.js";
 import { Role } from "../models/role.model.js";
+import { tokenSign } from "../helpers/generateToken.js";
 
 export const login = async (req, res) => {
     try {
@@ -17,8 +18,13 @@ export const login = async (req, res) => {
         if (user) {
             const checkPassword = await compare(password, user.password);
 
+            const tokenSession = await tokenSign(user);
+
             if (checkPassword) {
-                res.status(200).json({ data: user, message: 'Ingreso correctamente' });
+                res.send({
+                    data: user,
+                    tokenSession
+                })
             } else {
                 res.status(409).json({ error: 'Datos incorrectos' });
             }
@@ -32,7 +38,7 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
     try {
-        const { email, image,username, password } = req.body;
+        const { email, image, username, password } = req.body;
         const passwordHash = await encrypt(password);
 
         // Crea el usuario
@@ -45,7 +51,7 @@ export const register = async (req, res) => {
 
         const userRole = await Role.findOne({ where: { name: 'USER' } });
         if (!userRole) {
-            console.error('El rol "USER" no está definido en la base de datos.');
+            console.error(`El rol ${name} no está definido en la base de datos.`);
             return res.status(500).json({ error: 'Error al crear usuario' });
         }
 
