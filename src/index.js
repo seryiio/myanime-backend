@@ -1,6 +1,7 @@
 import app from './app.js'
 import { config } from 'dotenv'
 import { sequelize } from './database/db.js'
+import http from 'http'
 
 config();
 
