@@ -13,8 +13,6 @@ import rolesRoute from './routes/roles.routes.js'
 import commentsRoute from './routes/comments.routes.js'
 import myListRoute from './routes/mylist.routes.js'
 import volumeRoute from './routes/volumes.routes.js'
-import dotenv from 'dotenv';
-dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
