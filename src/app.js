@@ -13,9 +13,9 @@ import rolesRoute from './routes/roles.routes.js'
 import commentsRoute from './routes/comments.routes.js'
 import myListRoute from './routes/mylist.routes.js'
 import volumeRoute from './routes/volumes.routes.js'
+import http from 'http'
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(morgan('dev')); //para poder usar el script dev
 app.use(express.json()); //el servidor de express entiende las peticiones de post con los datos requestValue
@@ -33,9 +33,5 @@ app.use('/api/v1', rolesRoute);
 app.use('/api/v1', commentsRoute);
 app.use('/api/v1', myListRoute);
 app.use('/api/v1', volumeRoute);
-
-app.listen(port, () => {
-    console.log(`port running on port http://localhost:${port}`);
-});
 
 export default app;
