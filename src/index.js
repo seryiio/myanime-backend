@@ -13,7 +13,6 @@ async function main() {
     try {
         await sequelize.sync({ force: false })
         app.listen(4000);
-        console.log('Server RUN!');
         server.listen(port, () => {
             console.log(`port running on port http://localhost:${port}`);
         });

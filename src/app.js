@@ -20,7 +20,6 @@ app.use(morgan('dev')); //para poder usar el script dev
 app.use(express.json()); //el servidor de express entiende las peticiones de post con los datos requestValue
 app.use(cors());
 
-
 app.use('/api/v1', animesRoutes);
 app.use('/api/v1', booksRoutes);
 app.use('/api/v1', genresRoutes);
