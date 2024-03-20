@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize'
 import { sequelize } from "../database/db.js";
 import { Episode } from './episode.model.js';
 import { Song } from './song.model.js';
+import { MyList } from './mylist.model.js';
 
 export const Season = sequelize.define('season', {
     id: {
@@ -62,6 +63,10 @@ export const Season = sequelize.define('season', {
         type: DataTypes.STRING,
     },
 
+    quantity_episodes: {
+        type: DataTypes.INTEGER
+    },
+
     day_emission: {
         type: DataTypes.STRING,
     },
@@ -73,21 +78,31 @@ export const Season = sequelize.define('season', {
 });
 
 Season.hasMany(Episode, {
-    foreingKey: 'seasonId',
-    sourceKey: 'id'
+    foreignKey: 'seasonId',
+    targetKey: 'id'
 })
 
 Episode.belongsTo(Season, {
-    foreingKey: 'seasonId',
-    targetId: 'id'
+    foreignKey: 'seasonId',
+    targetKey: 'id'
 })
 
 Season.hasMany(Song, {
-    foreingKey: 'seasonId',
+    foreignKey: 'seasonId',
     sourceKey: 'id'
 })
 
 Song.belongsTo(Season, {
-    foreingKey: 'seasonId',
-    targetId: 'id'
+    foreignKey: 'seasonId',
+    targetKey: 'id'
+})
+
+Season.hasMany(MyList, {
+    foreignKey: 'seasonId',
+    sourceKey: 'id'
+})
+
+MyList.belongsTo(Season, {
+    foreignKey: 'seasonId',
+    targetKey: 'id'
 })

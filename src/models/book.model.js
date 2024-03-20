@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/db.js';
 import { Anime } from './anime.model.js'
 import { Volume } from './volume.model.js'
+import { MyList } from './mylist.model.js';
 
 export const Book = sequelize.define('book', {
     id: {

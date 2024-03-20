@@ -23,10 +23,10 @@ router.put('/animes/:id/genres/:id', updateAnimeGenres);
 router.delete('/animes/:id/genres/:id', deleteAnimeGenres);
 
 //CRUD ANIMES
-router.get('/animes', checkAuth, checkRoleAuth(['ADMIN']), getAllAnimes);
-router.post('/animes', checkAuth, checkRoleAuth(['ADMIN']),createAnime);
+router.get('/animes', getAllAnimes);
 router.get('/animes/:id', getAnime);
-router.put('/animes/:id', updateAnime);
-router.delete('/animes/:id', deleteAnime);
+router.post('/animes', checkAuth, checkRoleAuth(['ADMIN']),createAnime);
+router.put('/animes/:id', checkAuth, checkRoleAuth(['ADMIN']), updateAnime);
+router.delete('/animes/:id', checkAuth, checkRoleAuth(['ADMIN']), deleteAnime);
 
 export default router;

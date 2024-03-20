@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/db.js";
+import { MyList } from "./mylist.model.js";
 
 export const Volume = sequelize.define('volume', {
     id: {
@@ -22,3 +23,13 @@ export const Volume = sequelize.define('volume', {
 }, {
     timestamps: true,
 });
+
+Volume.hasMany(MyList, {
+    foreignKey: 'volumeId',
+    sourceKey: 'id'
+})
+
+MyList.belongsTo(Volume, {
+    foreignKey: 'volumeId',
+    targetKey: 'id'
+})
