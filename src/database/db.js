@@ -1,11 +1,13 @@
 import Sequelize from 'sequelize';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const sequelize = new Sequelize(
-    'verceldb',
-    'default',
-    '1LZzTysavI7P',
+    process.env.POSTGRES_DATABASE,
+    process.env.POSTGRES_USER,
+    process.env.POSTGRES_PASSWORD,
     {
-        host: 'ep-bitter-moon-a4zi37nh-pooler.us-east-1.aws.neon.tech',
+        host: process.env.POSTGRES_HOST,
         dialect: 'postgres',
         dialectOptions: {
             ssl: {
