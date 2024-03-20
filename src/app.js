@@ -13,7 +13,6 @@ import rolesRoute from './routes/roles.routes.js'
 import commentsRoute from './routes/comments.routes.js'
 import myListRoute from './routes/mylist.routes.js'
 import volumeRoute from './routes/volumes.routes.js'
-import http from 'http'
 
 const app = express();
 
