@@ -92,30 +92,6 @@ export const getLastSeasonsByAnimeId = async (req, res) => {
     }
 };
 
-
-// export const getAllLatestSeasons = async (req, res) => {
-//     try {
-//         const latestSeasons = await Season.findAll({
-//             attributes: ['animeId', [sequelize.fn('max', sequelize.col('number')), 'latestSeason']],
-//             group: ['animeId'],
-//             include: [{
-//                 model: Season,
-//                 attributes: ['id', 'number', 'title_japanese', 'title_english', 'description', 'year', 'season_year', 'type', 'studio', 'image', 'cover_image', 'url_trailer', 'status'],
-//                 where: {
-//                     status: true, // Assuming true means the season is ongoing or released
-//                 },
-//                 required: false, // Use false to perform a LEFT JOIN
-//                 duplicating: false, // Set duplicating to false to avoid duplicate rows in the result
-//                 as: 'latestSeason', // Specify the alias for the association
-//             }],
-//         });
-//         res.json(latestSeasons);
-//     } catch (error) {
-//         console.error('Error al obtener últimas temporadas:', error);
-//         res.status(500).json({ error: 'Error al obtener últimas temporadas' });
-//     }
-// };
-
 //CRUD SEASONS
 
 export const getAllSeasons = async (req, res) => {
@@ -155,7 +131,7 @@ export const getSeasonEpisodes = async (req, res) => {
 }
 
 export const createSeason = async (req, res) => {
-    const { number, title_japanese, title_english, synopsis, year, season_year, type, studio, image, cover_image, cover_image_secondary, url_trailer, day_emission, status, puntuation, animeId } = req.body;
+    const { number, title_japanese, title_english, synopsis, year, season_year, type, studio, image, cover_image, cover_image_secondary, url_trailer, quantity_episodes, day_emission, status, puntuation, animeId } = req.body;
     try {
         const newSeason = await Season.create({
             number,
@@ -170,6 +146,7 @@ export const createSeason = async (req, res) => {
             cover_image,
             cover_image_secondary,
             url_trailer,
+            quantity_episodes,
             day_emission,
             status,
             puntuation,
@@ -185,7 +162,7 @@ export const createSeason = async (req, res) => {
 export const updateSeason = async (req, res) => {
     try {
         const { id } = req.params;
-        const { number, title_japanese, title_english, synopsis, year, season_year, type, studio, image, cover_image, cover_image_secondary, url_trailer, day_emission, status, puntuation, animeGenreId } = req.body;
+        const { number, title_japanese, title_english, synopsis, year, season_year, type, studio, image, cover_image, cover_image_secondary, url_trailer, quantity_episodes, day_emission, status, puntuation, animeGenreId } = req.body;
 
         const season = await Season.findByPk(id);
         season.number = number;
@@ -200,6 +177,7 @@ export const updateSeason = async (req, res) => {
         season.cover_image = cover_image;
         season.cover_image_secondary = cover_image_secondary;
         season.url_trailer = url_trailer;
+        season.quantity_episodes = quantity_episodes;
         season.day_emission = day_emission;
         season.status = status;
         season.puntuation = puntuation;

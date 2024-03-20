@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/db.js'
 import { Season } from './season.model.js';
+import { MyList } from './mylist.model.js';
 
 export const Anime = sequelize.define('anime', {
     id: {
@@ -31,11 +32,11 @@ export const Anime = sequelize.define('anime', {
 
 //Cuando es UNO A MUCHOS LA FUNCION VA EN EL PADRE
 Anime.hasMany(Season, {
-    foreingKey: 'animeId',
+    foreignKey: 'animeId',
     sourceKey: 'id'
 })
 
 Season.belongsTo(Anime, {
-    foreingKey: 'animeId',
+    foreignKey: 'animeId',
     targetKey: 'id'
 })

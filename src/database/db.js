@@ -14,4 +14,11 @@ export const sequelize = new Sequelize(
             }
         }
     }
+    // 'dbanime',
+    // 'postgres',
+    // '1234',
+    // {
+    //     host: 'localhost',
+    //     dialect: 'postgres',
+    // }
 );

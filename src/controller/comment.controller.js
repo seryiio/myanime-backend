@@ -27,7 +27,7 @@ export const CreateComment = async (req, res) => {
 export const UpdateComment = async (req, res) => {
     try {
         const { id } = req.params;
-        const { description, date_time, userId,animeId, seasonId, mangaId } = req.body;
+        const { description, date_time, userId,animeId, seasonId, bookId } = req.body;
 
         const comment = await Comment.findByPk(id);
         comment.description = description;
@@ -35,7 +35,7 @@ export const UpdateComment = async (req, res) => {
         comment.userId = userId;
         comment.animeId = animeId;
         comment.seasonId = seasonId;
-        comment.mangaId = mangaId;
+        comment.bookId = bookId;
 
         await comment.save();
         res.json(comment);

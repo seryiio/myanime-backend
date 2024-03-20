@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/db.js";
+import { MyList } from "./mylist.model.js";
 
 export const User = sequelize.define('user',{
     id: {
@@ -26,3 +27,13 @@ export const User = sequelize.define('user',{
 }, {
     timestamps: false,
 });
+
+User.hasMany(MyList, {
+    foreignKey: 'userId',
+    sourceKey: 'id'
+})
+
+MyList.belongsTo(User, {
+    foreignKey: 'userId',
+    targetKey: 'id'
+})
