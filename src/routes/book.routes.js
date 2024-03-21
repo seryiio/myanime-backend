@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createBookGenres, deleteBookGenres, updateBookGenres, } from "../controller/books_genres.controller.js";
-import { createBook, deleteBook, getAllBooks, getBook, updateBook } from "../controller/book.controller.js";
+import { createBook, deleteBook, getAllBooks, getBook, getLastSeasonsByBook, getLastVolumeByBookId, updateBook } from "../controller/book.controller.js";
 import { getAnimesByBookId } from "../controller/animes.controller.js";
 import { checkAuth } from "../middleware/auth.js";
 import { checkRoleAuth } from "../middleware/roleAuth.js";
@@ -9,6 +9,8 @@ const router = Router();
 
 
 router.get('/books/:id/animes', getAnimesByBookId);
+router.get('/books/lastvolume', getLastSeasonsByBook);
+router.get('/books/:id/lastvolume', getLastVolumeByBookId);
 
 //CRUD GENRES BY BOOKID
 router.post('/books/:id/genres', createBookGenres);
