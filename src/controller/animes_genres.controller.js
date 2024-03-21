@@ -1,6 +1,7 @@
 import { Anime } from "../models/anime.model.js"
 import { AnimeGenre } from "../models/anime_genre.model.js"
 import { Genre } from "../models/genre.model.js";
+import { Season } from "../models/season.model.js";
 
 export const getAnimesByGenres = async (req, res) => {
     try {
@@ -22,8 +23,18 @@ export const getAnimesByGenreId = async (req, res) => {
         const genres = await Genre.findByPk(id, {
             include: {
                 model: Anime,
+                attributes: ['id', 'title_japanese', 'title_english'],
+                include: [
+                    {
+                        model: Season,
+                        order: [['createdAt', 'DESC']],
+                        limit: 1,
+                        required: true,
+                    },
+                ]
             }
         });
+
         res.json(genres);
     } catch (error) {
         console.error('Error al obtener animes de este genero:', error);
