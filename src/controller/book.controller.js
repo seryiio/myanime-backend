@@ -1,5 +1,6 @@
 import { Book } from '../models/book.model.js';
 import { Genre } from '../models/genre.model.js';
+import { Volume } from '../models/volume.model.js';
 
 //CRUD DE Mangas
 
@@ -10,7 +11,8 @@ export const getAllBooks = async (req, res) => {
                 {
                     model: Genre,
                 }
-            ]});
+            ]
+        });
         res.json(book);
     } catch (error) {
         console.error('Error al obtener libros:', error);
@@ -35,6 +37,60 @@ export const getBook = async (req, res) => {
         res.status(500).json({ error: 'Error al obtener mangas' });
     }
 }
+
+export const getLastSeasonsByBook = async (req, res) => {
+    try {
+        const thelast = await Book.findAll({
+            include: [
+                {
+                    model: Volume,
+                    order: [['createdAt', 'DESC']],
+                    limit: 1,
+                    required: true,
+                },
+                {
+                    model: Genre,
+                }
+            ],
+        });
+        const booksWithLastVolume = thelast.filter(book => book.volumes.length > 0);
+
+        res.json(booksWithLastVolume);
+    } catch (error) {
+        console.error('Error al obtener datos de la temporada de este anime:', error);
+        res.status(500).json({ error: 'Error al obtener datos de la temporada de este anime' });
+
+    }
+};
+
+export const getLastVolumeByBookId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const thelast = await Book.findByPk(id, {
+            include: [
+                {
+                    model: Volume,
+                    order: [['createdAt', 'DESC']],
+                    limit: 1,
+                    required: true,
+                },
+                {
+                    model: Genre,
+                }
+            ],
+        });
+        // Verificar si thelast existe y tiene al menos una temporada
+        if (thelast && thelast.volumes && thelast.volumes.length > 0) {
+            res.json(thelast);
+        } else {
+            res.json({}); // O respondes con un objeto vacío, dependiendo de tus necesidades
+        }
+    } catch (error) {
+        console.error('Error al obtener datos de la temporada de este anime:', error);
+        res.status(500).json({ error: 'Error al obtener datos de la temporada de este anime' });
+
+    }
+};
 
 export const createBook = async (req, res) => {
 
