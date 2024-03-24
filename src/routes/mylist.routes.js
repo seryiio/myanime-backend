@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/mylist', ListMyList);
 router.get('/mylist/:id', ListMyListByUserId);
-router.post('/mylist', checkAuth, CreateMyList);
-router.put('/mylist/:id', checkAuth, UpdateMyList);
-router.delete('/mylist/:id', checkAuth, DeleteMyList);
+router.post('/mylist', CreateMyList);
+router.put('/mylist/:id', UpdateMyList);
+router.delete('/mylist/:id', DeleteMyList);
 
 export default router;

@@ -30,9 +30,9 @@ export const ListVolume = async (req, res) => {
 
 export const CreateVolume = async (req, res) => {
     try {
-        const { number, image, status, puntuation, bookId } = req.body;
+        const { number, image, chapter, status, puntuation, bookId } = req.body;
         const createvol = await Volume.create({
-            number, image, status, puntuation, bookId,
+            number, image, chapter, status, puntuation, bookId,
         })
         res.json(createvol);
     } catch (error) {
@@ -44,10 +44,11 @@ export const CreateVolume = async (req, res) => {
 export const UpdateVolume = async (req, res) => {
     try {
         const { id } = req.params;
-        const { number, image, status, puntuation, bookId } = req.body;
+        const { number, image, chapter, status, puntuation, bookId } = req.body;
         const updatevol = await Volume.findByPk(id);
         updatevol.number = number;
         updatevol.image = image;
+        updatevol.chapter = chapter;
         updatevol.status = status;
         updatevol.puntuation = puntuation;
         updatevol.bookId = bookId;
