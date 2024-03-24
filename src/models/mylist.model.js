@@ -12,5 +12,8 @@ export const MyList = sequelize.define('my_list', {
     },
     status: {
         type: DataTypes.STRING,
+    },
+    chapter: {
+        type: DataTypes.INTEGER,
     }
 }, { timestamps: false });

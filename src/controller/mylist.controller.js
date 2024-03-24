@@ -1,8 +1,7 @@
-import { Anime } from "../models/anime.model.js";
-import { Book } from "../models/book.model.js";
 import { MyList } from "../models/mylist.model.js";
 import { Season } from "../models/season.model.js";
 import { User } from "../models/user.model.js";
+import { Volume } from "../models/volume.model.js";
 
 export const ListMyList = async (req, res) => {
     try {
@@ -23,10 +22,10 @@ export const ListMyListByUserId = async (req, res) => {
             include: [
                 {
                     model: MyList,
-                    attributes: ['id', 'favorite', 'status'],
+                    attributes: ['id', 'favorite', 'status', 'chapter'],
                     include: [
                         { model: Season },
-                        { model: Book }
+                        { model: Volume }
                     ]
                 }
             ]
@@ -55,15 +54,33 @@ export const ListMyListByUserId = async (req, res) => {
 }
 export const CreateMyList = async (req, res) => {
     try {
-        const { favorite, status, userId, seasonId, bookId } = req.body;
+        const { favorite, chapter, userId, seasonId, volumeId } = req.body;
+
+        let status;
+
+        const season = await Season.findByPk(seasonId);
+        if (chapter <= 0 || chapter == null) {
+            status = "POR VER";
+        } else if (chapter > 1 && chapter < season.quantity_episodes) {
+            status = "MIRANDO";
+        }
+        else if (chapter === season.quantity_episodes) {
+            status = "TERMINADO";
+        }
+        else if (chapter > season.quantity_episodes) {
+            return res.status(400).json({ error: 'El capítulo es mayor que la cantidad de episodios de la temporada' });
+        }
+
         const createMyList = await MyList.create({
             favorite,
             status,
+            chapter,
             userId,
             seasonId,
-            bookId,
+            volumeId,
         })
         res.json(createMyList);
+
     } catch (error) {
         console.error('Error al crear mi lista:', error);
         res.status(500).json({ error: 'Error al crear mi lista' });
@@ -73,13 +90,30 @@ export const CreateMyList = async (req, res) => {
 export const UpdateMyList = async (req, res) => {
     try {
         const { id } = req.params;
-        const { favorite, status, seasonId, bookId } = req.body;
+        const { favorite, chapter, userId, seasonId, volumeId } = req.body;
+
+        let status;
+
+        const season = await Season.findByPk(seasonId);
+        if (chapter <= 0 || chapter == null) {
+            status = "POR VER";
+        } else if (chapter >= 1 && chapter < season.quantity_episodes) {
+            status = "MIRANDO";
+        }
+        else if (chapter === season.quantity_episodes) {
+            status = "TERMINADO";
+        }
+        else if (chapter > season.quantity_episodes) {
+            return res.status(400).json({ error: 'El capítulo es mayor que la cantidad de episodios de la temporada' });
+        }
 
         const upmylist = await MyList.findByPk(id);
         upmylist.favorite = favorite;
         upmylist.status = status;
+        upmylist.chapter = chapter;
+        upmylist.userId = userId;
         upmylist.seasonId = seasonId;
-        upmylist.bookId = bookId;
+        upmylist.volumeId = volumeId;
 
         await upmylist.save();
         res.json(upmylist);

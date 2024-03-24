@@ -14,6 +14,9 @@ export const Volume = sequelize.define('volume', {
     image: {
         type: DataTypes.STRING,
     },
+    chapter: {
+        type: DataTypes.INTEGER,
+    },
     status: {
         type: DataTypes.STRING,
     },
